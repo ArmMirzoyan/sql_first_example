@@ -29,8 +29,8 @@ CREATE TABLE items_groups
     CONSTRAINT item FOREIGN KEY (group_id) References item (id),
     CONSTRAINT "group" FOREIGN KEY (item_id) References "group" (id)
 );
-DROP DATABASE MYSTERIOUS_DATABASE;
-DROP TABLE items_groups;
-DROP TABLE "group";
-DROP TABLE item;
-DROP TABLE configuration;
+--DROP DATABASE MYSTERIOUS_DATABASE;
+--DROP TABLE items_groups;
+--DROP TABLE "group";
+--DROP TABLE item;
+--DROP TABLE configuration;
