@@ -7,6 +7,7 @@ import java.util.Objects;
 @Table(name = "item")
 public abstract class Item {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
     @Column(name = "base_price")
@@ -18,6 +19,10 @@ public abstract class Item {
     @Column(name = "imageUrl")
     private String imageUrl;
     @Transient
+//    @ManyToMany
+//    @JoinTable (name="items_groups",
+//            joinColumns=@JoinColumn (name="item_id"),
+//            inverseJoinColumns=@JoinColumn(name="group_id"))
     private Group group;
 
     public Item() {
@@ -85,13 +90,12 @@ public abstract class Item {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Item item = (Item) o;
-        return id == item.id && basePrice == item.basePrice && currency.equals(item.currency)
-                && name.equals(item.name) && imageUrl.equals(item.imageUrl) && group.equals(item.group);
+        return id == item.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, basePrice, currency, name, imageUrl, group);
+        return Objects.hash(id);
     }
 
     @Override

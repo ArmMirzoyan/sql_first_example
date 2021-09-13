@@ -5,7 +5,7 @@ import com.example.tomcattest.model.Item;
 import com.example.tomcattest.model.ItemType;
 import com.example.tomcattest.model.StockItem;
 //import com.example.tomcattest.repository.ItemJdbcRepository;
-import com.example.tomcattest.util.Hibernate.DataAccessObject.HibernateItemRepo;
+import com.example.tomcattest.repository.DataAccessObject.ItemHibernateRepo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +21,7 @@ public class ItemsServlet extends HttpServlet {
     private static final String PARAM_TYPE = "type";
 
     //private final ItemJdbcRepository itemJdbcRepository = new ItemJdbcRepository();
-    HibernateItemRepo hibernateItemRepo = new HibernateItemRepo();
+    ItemHibernateRepo itemHibernateRepo = new ItemHibernateRepo();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -65,6 +65,6 @@ public class ItemsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("application/json");
         ObjectMapper objectMapper = new ObjectMapper();
-        resp.getWriter().write(objectMapper.writeValueAsString(hibernateItemRepo.getAllItems()));
+        resp.getWriter().write(objectMapper.writeValueAsString(itemHibernateRepo.getAllItems()));
     }
 }

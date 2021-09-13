@@ -1,13 +1,14 @@
-package com.example.tomcattest.util.Hibernate;
+package com.example.tomcattest.repository;
 
-import com.example.tomcattest.util.Hibernate.DataAccessObject.HibernateItemRepo;
+import com.example.tomcattest.repository.DataAccessObject.ItemHibernateRepo;
 import com.example.tomcattest.model.Item;
+import com.example.tomcattest.repository.config.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 
-public class HibernateItemRepository {
-    private static final HibernateItemRepo hibernateItemRepo = new HibernateItemRepo();
+public class ItemHibernateRepository {
+    private static final ItemHibernateRepo hibernateItemRepo = new ItemHibernateRepo();
 
-    private HibernateItemRepository() {
+    private ItemHibernateRepository() {
     }
 
     public static void save(Item item) {

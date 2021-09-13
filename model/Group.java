@@ -9,11 +9,16 @@ import java.util.Objects;
 @Table(name = "groupSQL")
 public class Group {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
     @Column(name = "name")
     private String name;
     @Transient
+//    @ManyToMany
+//    @JoinTable (name="items_groups",
+//            joinColumns=@JoinColumn (name="group_id"),
+//            inverseJoinColumns=@JoinColumn(name="item_id"))
     private Group parentGroup;
     @Transient
     private List<Group> subGroups = new ArrayList<>();
@@ -87,12 +92,12 @@ public class Group {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Group group = (Group) o;
-        return id == group.id && Objects.equals(name, group.name) && Objects.equals(parentGroup, group.parentGroup) && Objects.equals(subGroups, group.subGroups) && Objects.equals(items, group.items);
+        return id == group.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, parentGroup, subGroups, items);
+        return Objects.hash(id);
     }
 
     @Override

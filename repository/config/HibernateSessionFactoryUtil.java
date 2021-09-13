@@ -1,4 +1,4 @@
-package com.example.tomcattest.util.Hibernate;
+package com.example.tomcattest.repository.config;
 
 import com.example.tomcattest.model.Group;
 import com.example.tomcattest.model.Item;
@@ -27,7 +27,8 @@ public class HibernateSessionFactoryUtil {
                 configuration.setProperty("hibernate.show_sql.password","true");
                 configuration.setProperty("hibernate.format_sql","true");
                 configuration.setProperty("hibernate.show_sql","true");
-                StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
+                StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
+                        .applySettings(configuration.getProperties());
                 sessionFactory = configuration.buildSessionFactory(builder.build());
 
             } catch (Exception e) {

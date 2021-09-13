@@ -1,11 +1,12 @@
-package com.example.tomcattest.util.Hibernate;
+package com.example.tomcattest.repository;
 
-import com.example.tomcattest.util.Hibernate.DataAccessObject.HibernateGroupRepo;
+import com.example.tomcattest.repository.DataAccessObject.GroupHibernateRepo;
 import com.example.tomcattest.model.Group;
+import com.example.tomcattest.repository.config.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 
-public class HibernateGroupRepository {
-    static HibernateGroupRepo hibernateGroupRepo = new HibernateGroupRepo();
+public class GroupHibernateRepository {
+    static GroupHibernateRepo hibernateGroupRepo = new GroupHibernateRepo();
 
 
     public static void add(Group group) {

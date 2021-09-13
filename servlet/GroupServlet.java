@@ -1,6 +1,6 @@
 package com.example.tomcattest.servlet;
 
-import com.example.tomcattest.util.Hibernate.DataAccessObject.HibernateGroupRepo;
+import com.example.tomcattest.repository.DataAccessObject.GroupHibernateRepo;
 import com.example.tomcattest.model.Group;
 import com.example.tomcattest.util.URLUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,7 +17,7 @@ import java.util.Optional;
 public class GroupServlet extends HttpServlet {
 
     //private final GroupJdbcRepository groupJdbcRepository = new GroupJdbcRepository();
-    private final HibernateGroupRepo hibernateGroupRepo = new HibernateGroupRepo();
+    private final GroupHibernateRepo groupHibernateRepo = new GroupHibernateRepo();
 
     /**
      * Get all groups
@@ -28,7 +28,7 @@ public class GroupServlet extends HttpServlet {
         Integer groupId = URLUtils.getLastPathSegment(req, resp);
         if (groupId == null) return;
 
-        Optional<Group> groupOpt = Optional.ofNullable(hibernateGroupRepo.getById(groupId));
+        Optional<Group> groupOpt = Optional.ofNullable(groupHibernateRepo.getById(groupId));
         if (groupOpt.isPresent()) {
             ObjectMapper objectMapper = new ObjectMapper();
             resp.getWriter().write(objectMapper.writeValueAsString(groupOpt.get()));
