@@ -1,5 +1,7 @@
 package com.example.tomcattest.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -18,11 +20,15 @@ public abstract class Item {
     private  String currency;
     @Column(name = "imageUrl")
     private String imageUrl;
-    @Transient
-//    @ManyToMany
+//    @Transient
+//    @OneToMany (fetch = FetchType.EAGER)
 //    @JoinTable (name="items_groups",
-//            joinColumns=@JoinColumn (name="item_id"),
-//            inverseJoinColumns=@JoinColumn(name="group_id"))
+//            joinColumns=@JoinColumn (name="item_id", refereCN="id"),
+//            inverseJoinColumns=@JoinColumn(name="group_id", refereCN="id"))
+    //list mtm, @jointable,
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent")
+    @JsonBackReference
     private Group group;
 
     public Item() {

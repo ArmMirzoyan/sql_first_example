@@ -10,6 +10,11 @@ CREATE TABLE configuration
     id         serial PRIMARY KEY,
     Resolution varchar(3) NOT NULL CHECK (Resolution IN ('HD', 'FHD', '_4K'))
 );
+CREATE TABLE basket
+(
+    id   serial PRIMARY KEY,
+    name varchar(256)
+);
 CREATE TABLE item
 (
     id               INT PRIMARY KEY,
@@ -21,16 +26,13 @@ CREATE TABLE item
     configuration_id INT REFERENCES configuration (id),
     parent_group     INT REFERENCES "group" (id)
 );
-CREATE TABLE items_groups
+CREATE TABLE items_basket
 (
-    item_id  INT REFERENCES item (id),
-    group_id INT REFERENCES "group" (id),
-    id       INT PRIMARY KEY,
-    CONSTRAINT item FOREIGN KEY (group_id) References item (id),
-    CONSTRAINT "group" FOREIGN KEY (item_id) References "group" (id)
+    item_id   INT REFERENCES item (id),
+    basket_id INT REFERENCES basket (id),
+    id        INT PRIMARY KEY,
+    CONSTRAINT item FOREIGN KEY (basket_id) References item (id),
+    CONSTRAINT "group" FOREIGN KEY (item_id) References basket (id)
 );
 --DROP DATABASE MYSTERIOUS_DATABASE;
---DROP TABLE items_groups;
---DROP TABLE "group";
---DROP TABLE item;
 --DROP TABLE configuration;

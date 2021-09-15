@@ -3,11 +3,15 @@ package com.example.tomcattest.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Basket {
+public class BasketOld {
     private final List<BasketItem> basketItems = new ArrayList<>();
 
     public void add(BasketItem basketItem) {
         basketItems.add(basketItem);
+    }
+
+    public List<BasketItem> getBasketItem() {
+        return basketItems;
     }
 
     public boolean remove(BasketItem basketItem) {
@@ -15,7 +19,7 @@ public class Basket {
     }
 
     public void print() {
-        System.out.println("Basket ----- ");
+        System.out.println("BasketOld ----- ");
         for(BasketItem basketItem : basketItems) {
             basketItem.print();
         }

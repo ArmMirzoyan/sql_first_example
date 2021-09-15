@@ -1,12 +1,15 @@
 package com.example.tomcattest.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "groupSQL")
+@Table(name = "group")
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,15 +17,20 @@ public class Group {
     private long id;
     @Column(name = "name")
     private String name;
-    @Transient
-//    @ManyToMany
-//    @JoinTable (name="items_groups",
-//            joinColumns=@JoinColumn (name="group_id"),
-//            inverseJoinColumns=@JoinColumn(name="item_id"))
+//    @Transient
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "parentGroup")
+    @JsonManagedReference
     private Group parentGroup;
-    @Transient
+//    @Transient
+    @OneToMany( fetch = FetchType.EAGER)
+    @JoinColumn(name = "subGroups")
+    @JsonBackReference
     private List<Group> subGroups = new ArrayList<>();
-    @Transient
+//    @Transient
+    @OneToMany( fetch = FetchType.EAGER)
+    @JoinColumn(name = "parent")
     private List<Item> items = new ArrayList<>();
 
     public Group() {
