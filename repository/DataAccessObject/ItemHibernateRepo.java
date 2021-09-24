@@ -1,7 +1,7 @@
 package com.example.tomcattest.repository.DataAccessObject;
 
 import com.example.tomcattest.model.Item;
-import com.example.tomcattest.repository.config.HibernateSessionFactoryUtil;
+import com.example.tomcattest.repository.config.ApplicationContext;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,7 +13,8 @@ public class ItemHibernateRepo {
 
 
     public void add(Item item) {
-        SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
+//        SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
+        SessionFactory sessionFactory = ApplicationContext.context.getBean("getSessionfactory",SessionFactory.class);
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             session.saveOrUpdate(item);
@@ -22,7 +23,8 @@ public class ItemHibernateRepo {
     }
 
     public Item getById(long id) {
-        SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
+//        SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
+        SessionFactory sessionFactory = ApplicationContext.context.getBean("getSessionfactory",SessionFactory.class);
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             Item item = session.get(Item.class, id);
@@ -33,7 +35,8 @@ public class ItemHibernateRepo {
     }
 
     public void deleteById(long id) {
-        SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
+//        SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
+        SessionFactory sessionFactory = ApplicationContext.context.getBean("getSessionfactory",SessionFactory.class);
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             Item item = session.get(Item.class, id);
@@ -43,7 +46,8 @@ public class ItemHibernateRepo {
     }
 
     public void updateById(Item item) {
-        SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
+//        SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
+        SessionFactory sessionFactory = ApplicationContext.context.getBean("getSessionfactory",SessionFactory.class);
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             session.update(item);
@@ -52,7 +56,8 @@ public class ItemHibernateRepo {
     }
 
     public List<Item> getAllItems() {
-        SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
+//        SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
+        SessionFactory sessionFactory = ApplicationContext.context.getBean("getSessionfactory",SessionFactory.class);
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             List<Item> allItems = session.createQuery("SELECT a FROM Item a", Item.class)

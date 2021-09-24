@@ -4,10 +4,11 @@ import com.example.tomcattest.model.GenerativeItem;
 import com.example.tomcattest.model.Item;
 import com.example.tomcattest.model.ItemType;
 import com.example.tomcattest.model.StockItem;
-//import com.example.tomcattest.repository.ItemJdbcRepository;
-import com.example.tomcattest.repository.DataAccessObject.ItemHibernateRepo;
+import com.example.tomcattest.repository.config.ApplicationContext;
+import com.example.tomcattest.servise.ItemServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,9 +20,15 @@ import java.util.stream.Collectors;
 public class ItemsServlet extends HttpServlet {
 
     private static final String PARAM_TYPE = "type";
+    private ItemServiceImpl itemServiceImpl;
+
+    public void init() throws ServletException {
+        super.init();
+        itemServiceImpl = ApplicationContext.context.getBean("generactiveItemServiceImpl", ItemServiceImpl.class);
+    }
 
     //private final ItemJdbcRepository itemJdbcRepository = new ItemJdbcRepository();
-    ItemHibernateRepo itemHibernateRepo = new ItemHibernateRepo();
+//    ItemHibernateRepo itemHibernateRepo = new ItemHibernateRepo();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -65,6 +72,6 @@ public class ItemsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("application/json");
         ObjectMapper objectMapper = new ObjectMapper();
-        resp.getWriter().write(objectMapper.writeValueAsString(itemHibernateRepo.getAllItems()));
+        resp.getWriter().write(objectMapper.writeValueAsString(itemServiceImpl.getAll()));
     }
 }
