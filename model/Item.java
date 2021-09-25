@@ -3,13 +3,16 @@ package com.example.tomcattest.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "item")
 public abstract class Item {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item_id_seq")
+    @SequenceGenerator(name = "item_id_seq", sequenceName = "item_id_seq", allocationSize = 1)
     @Column(name = "id")
     private long id;
     @Column(name = "base_price")
@@ -17,7 +20,7 @@ public abstract class Item {
     @Column(name = "name")
     private String name;
     @Column(name = "currency")
-    private  String currency;
+    private String currency;
     @Column(name = "imageUrl")
     private String imageUrl;
 //    @Transient
@@ -26,10 +29,17 @@ public abstract class Item {
 //            joinColumns=@JoinColumn (name="item_id", refereCN="id"),
 //            inverseJoinColumns=@JoinColumn(name="group_id", refereCN="id"))
     //list mtm, @jointable,
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent")
+    @ManyToOne
+    @JoinColumn(name = "group_id")
     @JsonBackReference
     private Group group;
+
+    @OneToOne(mappedBy = "item", cascade = CascadeType.ALL)
+//            orphanRemoval = true)
+    private ItemDetails itemDetails;
+
+    @ManyToMany(mappedBy = "items")
+    private List<Basket> baskets = new ArrayList<>();
 
     public Item() {
 

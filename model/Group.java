@@ -12,7 +12,8 @@ import java.util.Objects;
 @Table(name = "group")
 public class Group {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "group_id_seq")
+    @SequenceGenerator(name = "group_id_seq", sequenceName = "group_id_seq", allocationSize = 1)
     @Column(name = "id")
     private long id;
     @Column(name = "name")
@@ -23,13 +24,13 @@ public class Group {
     @JoinColumn(name = "parentGroup")
     @JsonManagedReference
     private Group parentGroup;
-//    @Transient
-    @OneToMany( fetch = FetchType.EAGER)
+    //    @Transient
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "subGroups")
     @JsonBackReference
     private List<Group> subGroups = new ArrayList<>();
-//    @Transient
-    @OneToMany( fetch = FetchType.EAGER)
+    //    @Transient
+    @OneToMany(mappedBy = "group")
     @JoinColumn(name = "parent")
     private List<Item> items = new ArrayList<>();
 
