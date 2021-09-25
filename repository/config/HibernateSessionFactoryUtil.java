@@ -14,7 +14,7 @@ public class HibernateSessionFactoryUtil {
 
     }
 
-    @Bean
+    @Bean("getSessionFactory")
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {

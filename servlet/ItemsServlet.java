@@ -24,7 +24,7 @@ public class ItemsServlet extends HttpServlet {
 
     public void init() throws ServletException {
         super.init();
-        itemServiceImpl = ApplicationContext.context.getBean("generactiveItemServiceImpl", ItemServiceImpl.class);
+        itemServiceImpl = ApplicationContext.context.getBean("itemServiceImpl", ItemServiceImpl.class);
     }
 
     //private final ItemJdbcRepository itemJdbcRepository = new ItemJdbcRepository();

@@ -39,7 +39,7 @@ public class ItemHibernateRepository {
 
     public static void clear( ) {
 //        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        SessionFactory sessionFactory = ApplicationContext.context.getBean("getSessionfactory",SessionFactory.class);
+        SessionFactory sessionFactory = ApplicationContext.context.getBean("getSessionFactory",SessionFactory.class);
         Session session =sessionFactory.openSession();
         session.beginTransaction();
         session.createQuery("delete  from Item").executeUpdate();

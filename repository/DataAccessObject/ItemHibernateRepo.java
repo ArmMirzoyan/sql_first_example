@@ -14,7 +14,7 @@ public class ItemHibernateRepo {
 
     public void add(Item item) {
 //        SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
-        SessionFactory sessionFactory = ApplicationContext.context.getBean("getSessionfactory",SessionFactory.class);
+        SessionFactory sessionFactory = ApplicationContext.context.getBean("getSessionFactory",SessionFactory.class);
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             session.saveOrUpdate(item);
@@ -24,7 +24,7 @@ public class ItemHibernateRepo {
 
     public Item getById(long id) {
 //        SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
-        SessionFactory sessionFactory = ApplicationContext.context.getBean("getSessionfactory",SessionFactory.class);
+        SessionFactory sessionFactory = ApplicationContext.context.getBean("getSessionFactory",SessionFactory.class);
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             Item item = session.get(Item.class, id);
@@ -47,7 +47,7 @@ public class ItemHibernateRepo {
 
     public void updateById(Item item) {
 //        SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
-        SessionFactory sessionFactory = ApplicationContext.context.getBean("getSessionfactory",SessionFactory.class);
+        SessionFactory sessionFactory = ApplicationContext.context.getBean("getSessionFactory",SessionFactory.class);
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             session.update(item);
@@ -57,7 +57,7 @@ public class ItemHibernateRepo {
 
     public List<Item> getAllItems() {
 //        SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
-        SessionFactory sessionFactory = ApplicationContext.context.getBean("getSessionfactory",SessionFactory.class);
+        SessionFactory sessionFactory = ApplicationContext.context.getBean("getSessionFactory",SessionFactory.class);
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             List<Item> allItems = session.createQuery("SELECT a FROM Item a", Item.class)
