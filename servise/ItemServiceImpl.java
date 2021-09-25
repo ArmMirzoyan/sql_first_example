@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+@Component("itemServiceImpl")
 public class ItemServiceImpl implements ItemService{
 
     private ItemHibernateRepository itemHibernateRepository;

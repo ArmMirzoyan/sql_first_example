@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+@Component("groupServiceImpl")
 public class GroupServiceImpl implements GroupService {
 
     private GroupHibernateRepository groupHibernateRepository;
