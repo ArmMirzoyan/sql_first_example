@@ -14,4 +14,6 @@ public interface ItemService {
     Item getById(int id);
 
     void updateById(Item item);
+
+    void deleteById(int id);
 }

@@ -38,6 +38,10 @@ public class ItemServiceImpl implements ItemService{
     @Override
     public void updateById(Item item) {
         itemHibernateRepository.updateById(item);
+    }
 
+    @Override
+    public void deleteById(int id) {
+        itemHibernateRepository.deleteById(id);
     }
 }
