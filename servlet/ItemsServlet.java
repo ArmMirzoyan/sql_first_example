@@ -8,7 +8,6 @@ import com.example.tomcattest.repository.config.ApplicationContext;
 import com.example.tomcattest.servise.ItemServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,12 +19,9 @@ import java.util.stream.Collectors;
 public class ItemsServlet extends HttpServlet {
 
     private static final String PARAM_TYPE = "type";
-    private ItemServiceImpl itemServiceImpl;
 
-    public void init() throws ServletException {
-        super.init();
-        itemServiceImpl = ApplicationContext.context.getBean("itemServiceImpl", ItemServiceImpl.class);
-    }
+    private ItemServiceImpl itemServiceImpl =
+            ApplicationContext.context.getBean("itemServiceImpl", ItemServiceImpl.class);
 
     //private final ItemJdbcRepository itemJdbcRepository = new ItemJdbcRepository();
 //    ItemHibernateRepo itemHibernateRepo = new ItemHibernateRepo();

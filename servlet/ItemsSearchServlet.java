@@ -1,14 +1,15 @@
 package com.example.tomcattest.servlet;
 
 import com.example.tomcattest.model.Item;
-import com.example.tomcattest.repository.ItemRepository;
+import com.example.tomcattest.repository.config.ApplicationContext;
+import com.example.tomcattest.servise.ItemServiceImpl;
+import com.example.tomcattest.util.URLUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.List;
@@ -21,7 +22,9 @@ public class ItemsSearchServlet extends HttpServlet {
     public static final String PARAM_PRICE_GT = "priceGT";
     public static final String PARAM_PRICE_LT = "priceLT";
 
-    private final ItemRepository itemRepository = ItemRepository.getInstance();
+    //    private final ItemRepository itemRepository = ItemRepository.getInstance();
+    private ItemServiceImpl itemServiceImpl =
+            ApplicationContext.context.getBean("itemServiceImpl", ItemServiceImpl.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -38,7 +41,9 @@ public class ItemsSearchServlet extends HttpServlet {
             }
         }
 
-        List<Item> rv = itemRepository.findItems(searchPredicate);
+//        List<Item> rv = itemRepository.findItems(searchPredicate);
+        int itemId = (URLUtils.getLastPathSegment(req, resp));
+        List<Item> rv = (List<Item>) itemServiceImpl.getById(itemId);
 
         ObjectMapper objectMapper = new ObjectMapper();
         resp.getWriter().write(objectMapper.writeValueAsString(rv));
